@@ -1,0 +1,41 @@
+import requests
+
+# --- CONFIGURATION ---
+APP_ID = "siu"
+BOT_TOKEN = "siu"
+# ---------------------
+
+URL = f"https://discord.com/api/v10/applications/{APP_ID}/commands"
+
+# Add as many commands as you want here
+commands_to_register = [
+    {
+        "name": "start",
+        "description": "Starts the server",
+        "type": 1
+    },
+    {
+        "name": "ping",
+        "description": "Check if the bot is alive",
+        "type": 1
+    }
+]
+
+headers = {
+    "Authorization": f"Bot {BOT_TOKEN}",
+    "Content-Type": "application/json"
+}
+
+def register():
+    # Discord API for global commands accepts a LIST to overwrite/sync all at once
+    response = requests.put(URL, headers=headers, json=commands_to_register)
+    
+    if response.status_code in [200, 201]:
+        print("✅ Success! Commands registered.")
+        print(f"Registered: {[c['name'] for c in commands_to_register]}")
+    else:
+        print(f"❌ Failed: {response.status_code}")
+        print(response.text)
+
+if __name__ == "__main__":
+    register()
