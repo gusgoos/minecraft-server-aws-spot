@@ -31,10 +31,10 @@ def register():
     response = requests.put(URL, headers=headers, json=commands_to_register)
     
     if response.status_code in [200, 201]:
-        print("✅ Success! Commands registered.")
+        print("Success! Commands registered.")
         print(f"Registered: {[c['name'] for c in commands_to_register]}")
     else:
-        print(f"❌ Failed: {response.status_code}")
+        print(f"Failed: {response.status_code}")
         print(response.text)
 
 if __name__ == "__main__":
